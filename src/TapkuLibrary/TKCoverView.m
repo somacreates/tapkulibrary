@@ -39,18 +39,20 @@
 @property (retain,nonatomic,readonly) UIImageView *imageView;
 @property (retain,nonatomic,readonly) UIImageView *gradient;
 @property (retain,nonatomic,readonly) UIImageView *reflected;
+@property (assign,nonatomic,readonly) BOOL shouldReflect;
 
 @end
 
 
 @implementation TKCoverView
-@synthesize image,baseline;
+@synthesize image,baseline,shouldReflect;
 
 
 - (id) initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
 		self.opaque = NO;
 		self.backgroundColor = [UIColor clearColor];
+		shouldReflect = YES;
 		
 		[self addSubview:self.reflected];
 		[self addSubview:self.imageView];
@@ -130,7 +132,7 @@
 }
 
 - (UIImageView*) reflected{
-	if(reflected==nil){
+	if(reflected==nil && self.shouldReflect){
 		reflected =  [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.width, self.frame.size.width, self.frame.size.width)];
 		reflected.transform = CGAffineTransformScale(reflected.transform, 1, -1);
 	}
@@ -138,13 +140,37 @@
 }
 
 - (UIImageView*) gradient{
-	if(gradient==nil){
+	if(gradient==nil && self.shouldReflect){
 		gradient =  [[UIImageView alloc] initWithFrame:CGRectMake(0, self.frame.size.width, self.frame.size.width, self.frame.size.width)];
 		gradient.image = [UIImage imageFromPath:TKBUNDLE(@"TapkuLibrary.bundle/Images/coverflow/coverflowgradient.png")];
 	}
 	return gradient;
 }
 
+-(void) setShouldReflect:(BOOL)newShouldReflect {
+	shouldReflect = newShouldReflect;
+	
+	if (shouldReflect) {
+		[reflected removeFromSuperview];
+		[gradient removeFromSuperview];		
+		[reflected release];
+		reflected = nil;
+		[gradient release];
+		gradient = nil;
+		[self addSubview:self.reflected];
+		[self addSubview:self.gradient];
+	} else {
+		[reflected removeFromSuperview];
+		[gradient removeFromSuperview];
+		[reflected release];
+		reflected = nil;
+		[gradient release];
+		gradient = nil;
+	}
+	
+	[self setImage:image];
+
+}
 
 - (void) dealloc {
 	[image release];

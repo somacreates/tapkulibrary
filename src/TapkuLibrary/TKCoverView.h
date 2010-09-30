@@ -34,11 +34,15 @@
 @interface TKCoverView : UIView {
 	UIImage *image;
 	float baseline;
+	BOOL shouldReflect;
 	
 	UIImageView *imageView;
 	UIImageView *gradient;
 	UIImageView *reflected;
+	
+
 }
 @property (retain,nonatomic) UIImage *image;
 @property (assign,nonatomic) float baseline;
+@property (assign,nonatomic) BOOL shouldReflect;
 @end
