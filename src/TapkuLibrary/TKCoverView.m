@@ -45,7 +45,7 @@
 
 
 @implementation TKCoverView
-@synthesize image,baseline,shouldReflect;
+@synthesize image,baseline,shouldReflect,delegate;
 
 
 - (id) initWithFrame:(CGRect)frame {

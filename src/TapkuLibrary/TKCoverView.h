@@ -39,10 +39,9 @@
 	UIImageView *imageView;
 	UIImageView *gradient;
 	UIImageView *reflected;
-	
-
 }
 @property (retain,nonatomic) UIImage *image;
 @property (assign,nonatomic) float baseline;
 @property (assign,nonatomic) BOOL shouldReflect;
+@property (assign,nonatomic) id delegate;
 @end
