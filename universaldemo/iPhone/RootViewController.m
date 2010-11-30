@@ -35,23 +35,21 @@
 #import "FastTableViewController.h"
 #import "HUDViewController.h"
 #import "MapViewController.h"
-#import "OverviewController.h"
 #import "EmptyViewController.h"
 #import "GraphController.h"
 #import "DemoCalendarMonth.h"
 #import "CoverflowViewController.h"
-#import "FastSubtitleCellController.h"
 #import "MoreCellsViewController.h"
-
+#import "AlertsViewController.h"
 #import "ImageCenterViewController.h"
 
 @implementation RootViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (id) initWithStyle:(UITableViewStyle)s{
+	if(!(self = [super initWithStyle:s])) return nil;
 	
 	self.title = @"Tapku Library";
-	
+	self.tkBackButton = [[[TKBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Back"] style:TKBarButtonItemStyleBack target:nil action:nil] autorelease];
 	data = [[NSMutableArray alloc] init];
 	
 	NSArray *rows;
@@ -59,20 +57,20 @@
 	
 	
 	
-	rows = [NSArray arrayWithObjects:@"Coverflow",@"Graph",@"Overview Tableview",nil];
+	rows = [NSArray arrayWithObjects:@"Coverflow",@"Graph",nil];
 	d = [NSDictionary dictionaryWithObjectsAndKeys:rows,@"rows",@"Views",@"title",nil];
 	[data addObject:d];
 	
-	rows = [NSArray arrayWithObjects:@"Empty Sign",@"Loading HUD",@"Place Pins",nil];
+	rows = [NSArray arrayWithObjects:@"Empty Sign",@"Loading HUD",@"Alerts",@"Place Pins",nil];
 	d = [NSDictionary dictionaryWithObjectsAndKeys:rows,@"rows",@"UI Elements",@"title",nil];
 	[data addObject:d];
 	
-	rows = [NSArray arrayWithObjects:@"Month",@"Day",nil];
+	rows = [NSArray arrayWithObjects:@"Month",nil];
 	d = [NSDictionary dictionaryWithObjectsAndKeys:rows,@"rows",@"Calendar",@"title",nil];
 	[data addObject:d];
 	
-
-	rows = [NSArray arrayWithObjects:@"Label Cells",@"More Cells",@"Fast Scrolling Cells",@"Fast Subtitle Cells",nil];
+	
+	rows = [NSArray arrayWithObjects:@"Label Cells",@"More Cells",@"Indicator Cells",nil];
 	d = [NSDictionary dictionaryWithObjectsAndKeys:rows,@"rows",@"Table View Cells",@"title",@"Fast cells scroll smooth on older devices",@"footer",nil];
 	[data addObject:d];
 	
@@ -80,8 +78,10 @@
 	d = [NSDictionary dictionaryWithObjectsAndKeys:rows,@"rows",@"Locating Images",@"title",@"Handles large amounts of Internet image requests",@"footer",nil];
 	[data addObject:d];
 	
-	
+	return self;
 }
+
+
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -107,7 +107,10 @@
 	
 	
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	[tv deselectRowAtIndexPath:indexPath animated:YES];
+	
 	
 	UIViewController *vc;
 	int s = indexPath.section, r = indexPath.row;
@@ -125,8 +128,7 @@
 		return;
 	}
 	
-	else if(s==0 && r==2)
-		vc = [[OverviewController alloc] init];
+
 	
 	
 	
@@ -136,6 +138,8 @@
 	else if(s==1 && r==1)
 		vc = [[HUDViewController alloc] init];
 	else if(s==1 && r==2)
+		vc = [[AlertsViewController alloc] init];
+	else if(s==1 && r==3)
 		vc = [[MapViewController alloc] init];
 	
 	
@@ -155,8 +159,6 @@
 		vc = [[MoreCellsViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	else if(s==3 && r==2)
 		vc = [[FastTableViewController alloc] initWithStyle:UITableViewStylePlain];
-	else if(s==3 && r==3)
-		vc = [[FastSubtitleCellController alloc] initWithStyle:UITableViewStylePlain];
 	
 	else
 		vc = [[ImageCenterViewController alloc] initWithStyle:UITableViewStylePlain];

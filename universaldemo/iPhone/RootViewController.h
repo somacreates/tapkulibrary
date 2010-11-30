@@ -30,8 +30,9 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <TapkuLibrary/TapkuLibrary.h>
 
-@interface RootViewController : UITableViewController {
+@interface RootViewController : TKTableViewController {
 	NSMutableArray *data;
 }
 

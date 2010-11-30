@@ -29,9 +29,9 @@
  
  */
 
-
+#import <MapKit/MapKit.h>
 #import <TapkuLibrary/TapkuLibrary.h>
-
+#import <TapkuLibraryExtra/TapkuLibraryExtras.h>
 
 @protocol TKMapViewDelegate;
 @class TKMapView;
@@ -40,6 +40,7 @@
 @interface MapViewController : UIViewController <TKMapViewDelegate> {
 	TKMapView *mapView;
 	UIBarButtonItem *button;
+	TKBarButtonItem *addPin;
 }
 
 @end

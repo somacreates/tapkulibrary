@@ -14,6 +14,8 @@
 
 - (void) generateRandomDataForStartDate:(NSDate*)start endDate:(NSDate*)end{
 	
+	//NSLog(@"%@ %@",start,end);
+	
 	[dataArray release];
 	[dataDictionary release];
 	dataArray = [[NSMutableArray alloc] init];
@@ -60,12 +62,14 @@
 	
 }
 - (void) calendarMonthView:(TKCalendarMonthView*)monthView didSelectDate:(NSDate*)d{
+	
+
+	
 	[self.tableView reloadData];
 }
 - (void) calendarMonthView:(TKCalendarMonthView*)mv monthDidChange:(NSDate*)d{
 	[super calendarMonthView:mv monthDidChange:d];
 	[self.tableView reloadData];
-	NSLog(@"Month Did Change: %@ %@",d,[monthView dateSelected]);
 }
 
 
