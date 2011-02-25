@@ -6,6 +6,8 @@ TapkuLibraryDemo/build/**
 *.perspectivev3
 *.mode1v3
 
+xcuserdata
+
 # old skool
 .svn
 .cvs
