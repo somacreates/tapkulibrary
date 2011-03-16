@@ -7,6 +7,8 @@ TapkuLibraryDemo/build/**
 *.mode1v3
 xcuserdata
 
+xcuserdata
+
 # old skool
 .svn
 .cvs
